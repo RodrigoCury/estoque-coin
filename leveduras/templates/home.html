@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}Leveduras{% endblock title%}
+
+{% block content%}
+
+<div class='container-fluid'>
+    <div class='row'>
+        <div class='col mt-4'>
+            <div class='card'>
+                <div class='card-body'>
+                    <h3 class='card-title'>
+                        Próximas Repicagens
+                    </h3>
+                    <div class='row'>
+                        {% for levedura in leveduras %}
+                        {% include 'home_cards.html' %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='row'>
+        <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 mt-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title">Ultimas atividades:</h3>
+                    <div class="slimScrollDiv"
+                        style="position: relative; overflow: auto; width: auto; height: 390px;">
+                        <div id="activity" style="overflow: auto; width: auto; height: 390px;">
+                            {% if activities %}
+                            {% for activity in activities %}
+                            {% include 'activity_cards.html' %}
+                            {% endfor %}
+                            {% else %}
+                            <h4 class='text-muted'>Não há atividades</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 mt-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title">Marcas</h3>
+                    <h6 class="text-muted ">Porcentagem do estoque</h6>
+                    <div class="slimScrollDiv mr-1"
+                        style="position: relative; overflow: auto; width: auto; height: 390px;">
+                        <div id="activity" style="overflow: auto; width: auto; height: 390px;">
+                            {% for brand in brands %}
+                            {% include 'brand_share.html' %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 mt-2">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title">Perfis Fermetativos</h3>
+                    <h6 class="text-muted ">Porcentagem do estoque</h6>
+                    <div class="slimScrollDiv"
+                        style="position: relative; overflow: auto; width: auto; height: 390px;">
+                        <div id="activity" style="overflow: auto; width: auto; height: 390px;">
+                            {% for profile in profiles %}
+                            {% include 'profile_share.html' %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% load custom_filters %}
+        {% load widget_tweaks %}
+        <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6 mt-2">
+            <div class="card h-100">
+                <div class="card-body px-0">
+                    <div class='d-flex flex-row justify-content-between align-items-center'>
+                    <h4 class="card-title px-4 mb-3">Todo</h4>
+                    <div class="px-4">
+                            <form class='d-flex flew-row' id='todo-form' action=''>
+                                {% csrf_token %}
+                                {% for field in todo_form %}
+                                    {% render_field field class="form-control" placeholder=field.label onkeypress='addTodo(event)'%}
+                                {% endfor %}
+                            </form>
+                        </div>
+                    </div>
+                    <div class="todo-list h-100">
+                        <div class="tdl-holder h-100 d-flex flex-column flex-justify-between">
+                            <div class="tdl-content h-100">
+                                <div class="slimScrollDiv h-100"
+                                    style="position: relative; overflow: auto; width: auto;">
+                                    <ul id="todo_list h-100" style="overflow: auto; width: auto;">
+                                        {% for todo in todo_list %}
+                                        <li class='d-flex flex-row align-items-center justify-content-between mr-2'>
+                                            <label>
+                                                <input type="checkbox" 
+                                                {% if todo.complete %}
+                                                checked
+                                                {% endif %} 
+                                                {{todo|complete_todo}}>
+                                                <i></i>
+                                                <span>{{todo.activity}}</span>
+                                            </label>
+                                            <a href='#' class='ti-trash' id='todo{{todo.id}}' {{todo|delete_todo}} ></a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{% load static %}
+<script src="{% static 'js/todo.js' %}"></script>
+{% endblock scripts %}

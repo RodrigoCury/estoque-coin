@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block title %}Leveduras{% endblock title%}
+
+{% block content%}
+<div class='container-fluid'>
+</div>
+{% if results %}
+    {% if yeast %}
+    <div class='container-fluid'>
+        <div class='row'>
+            <div class='col'>
+                <div class='card'>
+                    <div class='card-body'>
+                        <h3 class='card-title'>
+                            Leveduras
+                        </h3>
+                        <div class='row'>
+                            {% for result in yeast %}
+                            {% include 'search_cards.html'%}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if brand %}
+    <div class='container-fluid'>
+        <div class='row'>
+            <div class='col'>
+                <div class='card'>
+                    <div class='card-body'>
+                        <h3 class='card-title'>
+                            Marcas
+                        </h3>
+                        <div class='row'>
+                            {% for result in brand %}
+                            {% include 'search_cards.html'%}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    {% if profile %}
+    <div class='container-fluid'>
+        <div class='row'>
+            <div class='col'>
+                <div class='card'>
+                    <div class='card-body'>
+                        <h3 class='card-title'>
+                            Perfis Fermentativos
+                        </h3>
+                        <div class='row'>
+                            {% for result in profile %}
+                            {% include 'search_cards.html'%}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+{% else %}
+    <div class='container-fluid'>
+        <div class='row'>
+            <div class='col'>
+                <div class='card'>
+                    <div class='card-body'>
+                        <h3 class='card-title text-center'>
+                            Não encontrei resultados
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+{% endif %}
+{% endblock content %}

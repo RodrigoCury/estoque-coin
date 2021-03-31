@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Perfis Fermentativos{% endblock title%}
+
+{% block content%}
+
+<div class="container-fluid mt-3 h-100">
+    <div class='row justify-content-center h-100'>
+        <div class='col-2 '>
+            <div class="card mt-n1 mb-n1 h-100">
+                <div class="card-body d-flex flex-column align-items-center justify-content-between">
+                    <div class=''>
+                        <a class='' href="{% url 'profile_create' %}">
+                            <button type="button " class="btn mb-1 btn-outline-primary"><strong>&plus;
+                                    Perfil <br> Fermentativo</strong></button>
+                        </a>
+                    </div>
+                    {% include 'pagination.html' %}
+                </div>
+            </div>
+        </div>
+        <div class='col-10'>
+            <div class='card h-100'>
+                <div class='card-header d-flex justify-content-center mb-n1'>
+                    <h2 class='text-muted'>Perfis Fermentativos</h2>
+                </div>
+                <div class='card-body'>
+                    <div class="row">
+                        {% for perfil in object_list %}
+                        <div class="col-md-6 col-lg-3 mb-4">
+                            <a href="{{perfil.get_absolute_url}}">
+                                <div class="card gradient-1 h-100">
+                                    <div class="card-body">
+                                        <h2 class="text-white text-center">{{perfil.name}}</h2>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+{% endblock content %}

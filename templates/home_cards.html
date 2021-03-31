@@ -1,0 +1,22 @@
+{% load custom_filters %}
+<div class="col-3">
+    <a href="{{levedura.get_absolute_url}}">
+        <div class="card card-widget">
+            <div class="card-body gradient-{{levedura|card}}">
+                <div class="media">
+                    <span class="card-widget__icon"><i class="icon-{{levedura|icon}}"></i></span>
+                    <div class="media-body">
+                        <h2 class="card-widget__title">{{ levedura.name }}</h2>
+                        <h4 class='card-widget__subtitle mb-1'>Próxima Repicagem:</h4>
+                        <h5 class="card-widget__subtitle ">{{ levedura.next_reinnoculation_limit_date }}</h5>
+                        <div class="progress mt-4 mb-2" style="height: 7px">
+                            <div class="progress-bar gradient-6" style="width: {{levedura|progress}}%;"
+                                role="progressbar">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>

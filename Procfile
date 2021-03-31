@@ -1,0 +1,1 @@
+web: gunicorn controleleveduras.wsgi --log-file -

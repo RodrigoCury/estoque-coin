@@ -1,0 +1,18 @@
+<div class="col-md-6 col-lg-3 mb-4">
+    <a href={{levedura.get_absolute_url}}>
+        <div class="card gradient-1 h-100">
+            <div class="card-body">
+                <h2 class="text-white text-center">{{levedura.name}}</h2>
+                <h3 class="text-white text-center">{{levedura.fermentative_profile.name}}
+                </h3>
+                <div class="d-inline-block position-relative fixed-bottom">
+                    <p class="text-white mb-0">Atenuação: {{levedura.attenuation}}%</p>
+                    <p class="text-white mb-0">Pof: {{levedura.polyphenol}}</p>
+                    <p class="text-white mb-0">AMG: {{levedura.amyloglucosidase}}</p>
+                    <p class="text-white mb-0">Próximo repique:</p>
+                    <p class="text-white mb-0">{{levedura.next_reinnoculation_limit_date}}</p>
+                </div>
+            </div>
+        </div>
+    </a>
+</div>

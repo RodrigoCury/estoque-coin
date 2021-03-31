@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block title %}Leveduras{% endblock title%}
+
+{% block content%}
+
+<div class='container mt-4'>
+    <div class='card'>
+        <div class='card-header d-flex justify-content-center'>
+            <h2 class='mb-4 mt-2'>Adicionar Levedura ao Banco</h2>
+        </div>
+        <div class='card-body'>
+            <form method="post" enctype='multipart/form-data'>
+                {% csrf_token %}
+                <div class='row'>
+                    {% for field in form %}
+                    <div class="col-md-6 col-lg-4 mb-3">
+                        <div class="card w-100">
+                            <div class="card-body ">
+                                {{ field|bootstrap }}
+                                {% if field.help_text %}
+                                <p class="card-text d-inline">
+                                    <small class="text-muted">
+                                        {{field.help_text|safe|bootstrap }}
+                                    </small>
+                                </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                <button class='btn btn-primary' type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

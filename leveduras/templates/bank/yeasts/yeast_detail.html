@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Levedura - {{object.name}}
+{% endblock title %}
+
+{% block content %}
+<div class="col">
+    <div class="card mt-4">
+        <div class="card-body">
+            <div class="media align-items-center mb-0">
+                <div class="media-body text-center">
+                    <h1 class="mb-0">{{object.name}}</h1>
+                    <h3 class="text-muted mb-0">{{object.fermentative_profile.name}}</h3>
+                    <!-- Adicionar link Perfil Fermentativo -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col">
+    <div class="card">
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col">
+                    <div class="card card-profile text-center">
+                        <span class="mb-1 text-primary"><i class="mdi mdi-fingerprint"></i></span>
+                        <p class="text-muted px-4">Marca</p>
+                        <h3 class="mb-4">{{object.brand.name}}</h3>
+                    </div>
+                    <div class="card card-profile text-center">
+                        <span class="mb-1 text-primary"><i class="mdi mdi-account-outline"></i></span>
+                        <p class="text-muted px-4">Atenuação</p>
+                        <h3 class="mb-4">{{object.attenuation}}%</h3>
+                    </div>
+                    <div class="card card-profile text-center">
+                        <span class="mb-1 text-primary"><i class="mdi mdi-account-outline"></i></span>
+                        <p class="text-muted px-4">Polifenol</p>
+                        <h3 class="mb-4">{{object.polyphenol}}</h3>
+                    </div>
+                    <div class="card card-profile text-center">
+                        <span class="mb-1 text-primary"><i class="mdi mdi-account-outline"></i></span>
+                        <p class="text-muted px-4">Último repique</p>
+                        <h3 class="mb-4">{{object.last_reinnoculation}}</h3>
+                    </div>
+                    <div class="card card-profile text-center">
+                        <span class="mb-1 text-primary"><i class="mdi mdi-account-outline"></i></span>
+                        <p class="text-muted px-4">Quantidade de Repiques</p>
+                        <h3 class="mb-4">{{object.reinnoculation_count}}</h3>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card card-profile text-center">
+                        <span class="mb-1 text-primary"><i class="mdi mdi-account-outline"></i></span>
+                        <p class="text-muted px-4">Responsável</p>
+                        <h3 class="mb-4">
+                            {% if object.user.name != '' %}
+                            {{object.user.first_name}} {{object.user.last_name}}
+                            {% else %}
+                            {{object.user.username}}
+                            {% endif %}
+                        </h3>
+                    </div>
+                    <div class="card card-profile text-center">
+                        <span class="mb-1 text-primary"><i class="mdi mdi-account-outline"></i></span>
+                        <p class="text-muted px-4">Floculação</p>
+                        <h3 class="mb-4">{{object.flocculation}}</h3>
+                    </div>
+                    <div class="card card-profile text-center">
+                        <span class="mb-1 text-primary"><i class="mdi mdi-account-outline"></i></span>
+                        <p class="text-muted px-4">Amiloglucosidase</p>
+                        <h3 class="mb-4">{{object.amyloglucosidase}}</h3>
+                    </div>
+                    <div class="card card-profile text-center">
+                        <span class="mb-1 text-primary"><i class="mdi mdi-account-outline"></i></span>
+                        <p class="text-muted px-4">Próximo repique</p>
+                        <h3 class="mb-4">{{object.next_reinnoculation_limit_date}}</h3>
+                    </div>
+                    {% if object.datasheet %}
+                    <div class="card card-profile text-center">
+                        <a href="{{object.datasheet.url}}">
+                            <span class="mb-1 text-primary"><i class="mdi mdi-file-pdf"></i></span>
+                            <p class="text-muted px-4">Abrir</p>
+                            <h3 class="mb-4">Datasheet<h3>
+                        </a>
+                    </div>
+                    {% else %}
+                    <div class="card card-profile text-center">
+                        <span class="mb-1 text-primary"><i class="mdi mdi-file-pdf"></i></span>
+                        <p class="text-muted px-4">&nbsp;</p>
+                        <h3 class="mb-4">Datasheet não disponível<h3>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div class="col text-center">
+                    <div class="bootstrap-modal">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-danger" data-toggle="modal"
+                            data-target="#remove"><strong>Remover do Banco</strong></button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="remove">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"><strong>Remover do banco</strong></h5>
+                                        <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Você têm certeza que vai <strong>remover</strong> esta levedura do banco? Esta
+                                        ação não poderá ser desfeita!
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary"
+                                            data-dismiss="modal">Cancelar</button>
+                                        <a href="{% url 'yeast_delete' slug=object.slug %}">
+                                            <button type="button" class="btn btn-danger">Remover</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col text-center">
+                    <div class="bootstrap-modal">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-info" data-toggle="modal"
+                            data-target="#reinnoculate"><strong>Repicar</strong></button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="reinnoculate">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Repicar</h5>
+                                        <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Você têm certeza que vai <strong>repicar</strong> esta levedura? Esta ação
+                                        não poderá ser desfeita!
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary"
+                                            data-dismiss="modal">Close</button>
+                                        <a href="{% url 'yeast_reinnoculate' slug=object.slug %}"> <button type="button"
+                                                class="btn btn-danger">Repicar</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load widget_tweaks %}
+
+{% block title %}
+Login
+{% endblock title %}
+
+{% block content %}
+<div class='container-fluid'>
+    <div class="login-form-bg h-100">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100">
+                <div class="col-xl-6">
+                    <div class="form-input-content">
+                        <div class="card login-form mb-0">
+                            <div class='card-header'>
+                                <h3 class='text-center'>Você foi desconectado</h3>
+                            </div>
+                            <div class="card-body pt-5 d-flex flex-column align-items-center ">
+                                <a href='/'>
+                                    <button class='text-center btn btn-primary mb-2'>Clique aqui para retornar para a
+                                        página
+                                        inicial</button>
+                                </a>
+                                <a href="{% url 'login' %}">
+                                    <button class='text-center btn btn-primary mb-2'>Clique aqui para logar
+                                        novamente</button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

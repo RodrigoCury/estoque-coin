@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% load widget_tweaks %}
+
+{% block title %}
+Login
+{% endblock title %}
+
+{% block content %}
+<div class='container-fluid'>
+    <div class="login-form-bg h-100">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100">
+                <div class="col-xl-6">
+                    <div class="form-input-content">
+                        <div class="card login-form mb-0">
+                            <div class="card-body pt-5">
+                                <a class="text-center" href="/">
+                                    <h4>Banco Leveduras</h4>
+                                </a>
+
+                                {% if messages %}
+                                <div class='mb-3 mt-3'>
+                                    {% for message in messages %}
+                                    {{message|bootstrap}}
+                                    {% endfor%}
+                                </div>
+                                {% endif%}
+
+                                <form class="mt-5 mb-5 login-input" method="post" action="{% url 'login' %}">
+                                    {% csrf_token %}
+                                    {% for field in form %}
+                                    <div class="form-group">
+                                        {% render_field field class="form-control" placeholder=field.label %}
+                                    </div>
+                                    {% endfor %}
+                                    <button class="btn login-form__btn submit w-100">Entrar</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

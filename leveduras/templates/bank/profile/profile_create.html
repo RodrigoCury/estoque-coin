@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block title %}&plus; Perfil Fermentativo{% endblock title%}
+
+{% block content%}
+
+<div class='container mt-4'>
+    <div class='card'>
+        <div class='card-header d-flex justify-content-center'>
+            <h2 class='mb-4 mt-2'>Adicionar Perfil Fermentativo</h2>
+        </div>
+        <div class='card-body'>
+            <form method="post" enctype='multipart/form-data'>
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="card h-100 w-100">
+                    <div class="card-body ">
+                        <h6 class="card-subtitle mb-2 text-muted">{{ field.errors }}</h6>
+                        {{ field|bootstrap }}
+                        {% if field.help_text %}
+                        <p class="card-text d-inline">
+                            <small class="text-muted">
+                                {{field.help_text|safe|bootstrap }}
+                            </small>
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                <button class='btn btn-primary' type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}

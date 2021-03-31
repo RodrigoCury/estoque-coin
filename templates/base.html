@@ -1,0 +1,188 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{% block title %}{% endblock title %}</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/ico" sizes="16x16" href={% static 'favicon.ico' %}>
+    <!-- Pignose Calender -->
+    <link href={% static 'plugins/pg-calendar/css/pignose.calendar.min.css' %} rel=" stylesheet">
+    <!-- Chartist -->
+    <link rel="stylesheet" href={% static 'plugins/chartist/css/chartist.min.css' %}>
+    <link rel="stylesheet" href={% static 'plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css' %}>
+    <!-- Custom Stylesheet -->
+    <link href={% static 'css/style.css' %} rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="/">
+                    <b class="logo-abbr"><img src="{% static 'images/logo.png' %}" alt=""> </b>
+                    <span class="logo-compact">
+                        <h2 style='color:white;'>Coin</h2>
+                    </span>
+                    <span class="brand-title">
+
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content clearfix">
+                <div class="header-left">
+                    <div class="input-group icons d-flex flew-row">
+                        <input type="search" class="form-control" id='search-bar' placeholder="Pesquisar"
+                            aria-label="Pesquisar" onkeyup="searchEnter(event)">
+                        <button type="button" id='search-button' class="btn btn-primary"
+                            onclick='search()'>Procurar</button>
+                    </div>
+                </div>
+
+                <div class="header-right d-flex flew-row align-items-center">
+                    {% if user.is_authenticated %}
+                    <h4 class='text-muted mr-3'>Olá {{user.first_name}}</h4>
+                    <a href="{% url 'logout' %}">
+                        <button class='btn btn-primary'>
+                            Logout
+                        </button>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'login' %}">
+                        <button class='btn btn-primary'>
+                            Login
+                        </button>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li>
+                        <a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                            <i class="icon-chart menu-icon"></i> <span class="nav-text">Banco de Leveduras</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="{% url 'yeast_list' %}">Leveduras</a></li>
+                            <li><a href="{% url 'brand_list' %}">Marcas</a></li>
+                            <li><a href="{% url 'profile_list' %}">Perfil</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+        <div class="content-body">
+            {% block content %}
+            {% endblock content %}
+        </div>
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quixlab</a>
+                    2018</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="{% static 'plugins/common/common.min.js' %}"></script>
+    <script src="{% static 'js/custom.min.js' %}"></script>
+    <script src="{% static 'js/settings.js' %}"></script>
+    <script src="{% static 'js/gleek.js' %}"></script>
+    <script src="{% static 'js/styleSwitcher.js' %}"></script>
+
+    <!-- Chartjs -->
+    <script src="{% static 'plugins/chart.js/Chart.bundle.min.js' %}"></script>
+    <!-- Circle progress -->
+    <script src="{% static 'plugins/circle-progress/circle-progress.min.js' %}"></script>
+    <!-- Datamap -->
+    <script src="{% static 'plugins/d3v3/index.js' %}"></script>
+    <script src="{% static 'plugins/topojson/topojson.min.js' %}"></script>
+    <script src="{% static 'plugins/datamaps/datamaps.world.min.js' %}"></script>
+    <!-- Morrisjs -->
+    <script src="{% static 'plugins/raphael/raphael.min.js' %}"></script>
+    <script src="{% static 'plugins/morris/morris.min.js' %}"></script>
+    <!-- Pignose Calender -->
+    <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static 'plugins/pg-calendar/js/pignose.calendar.min.js' %}"></script>
+    <!-- ChartistJS -->
+    <script src="{% static 'plugins/chartist/js/chartist.min.js' %}"></script>
+    <script src="{% static 'plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js' %}">
+    </script>
+    <script src="{% static 'js/dashboard/dashboard-1.js' %}"></script>
+    <script>
+        searchBar = document.getElementById('search-bar')
+        search = (event) => {
+            if (searchBar.value != '') {
+                window.location.href = `/search/?search=${searchBar.value}`;
+            } else {
+                searchBar.placeholder = "Digite algo para pesquisar"
+            }
+        }
+        searchEnter = (e) => {
+            if (e.key == "Enter") {
+                search(e)
+            } else {
+                e.preventDefault();
+                return;
+            }
+        }
+
+    </script>
+    {% block scripts %}{% endblock scripts %}
+</body>
+
+</html>

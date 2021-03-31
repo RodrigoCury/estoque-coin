@@ -1,0 +1,21 @@
+<div class="d-flex flex-column align-items-center" role="group">
+    {% if page_obj.has_previous %}
+    <a class='mb-1' href="?page={{ page_obj.previous_page_number }}" tabindex="-1"><button type="button"
+            class="btn btn-primary">Anterior</button></a>
+    {% else %}
+    <a href="#" tabindex="-1" class='mb-1 disabled'><button type="button" class="btn btn-primary"
+            disabled>Anterior</button></a>
+    {% endif %}
+    <a href="#" class='mb-1 disabled'>
+        <button type="button" class="btn btn-primary disabled">
+            {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+        </button>
+    </a>
+    {% if page_obj.has_next %}
+    <a class='mb-1' href="?page={{ page_obj.next_page_number }}" tabindex="-1"><button type="button"
+            class="btn btn-primary">Próximo</button></a>
+    {% else %}
+    <a class='mb-1 disabled' href="#" tabindex="-1"><button type="button" class="btn btn-primary"
+            disabled>Próximo</button></a>
+    {% endif %}
+</div>
